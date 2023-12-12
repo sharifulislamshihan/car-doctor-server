@@ -72,7 +72,12 @@ async function run() {
 
         // Read booking data
         app.get('/bookings', async(req, res) =>{
-            const cursor = bookingCollection.find();
+            console.log(req.query.email);
+            let query = {};
+            if(req.query?.email){
+                query = { email: req.query.email }
+            }
+            const cursor = bookingCollection.find(query);
             const result = await cursor.toArray();
             res.send(result);
         })
