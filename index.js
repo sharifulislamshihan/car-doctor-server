@@ -55,7 +55,8 @@ async function run() {
                 projection: {
                     title: 1,
                     price: 1,
-                    service_id: 1,
+                    service_id : 1,
+                    img : 1,
                 },
             };
             const result = await serviceCollection.findOne(query, options);
@@ -79,6 +80,18 @@ async function run() {
             }
             const cursor = bookingCollection.find(query);
             const result = await cursor.toArray();
+            res.send(result);
+        })
+        // update booking
+        app.put('/booking/:id', async(req, res) =>{
+            const updateBooking = req.body;
+        })
+
+        // delete data from bookings
+        app.delete('/bookings/:id', async(req, res) =>{
+            const id = req.params.id;
+            const query = { _id : new ObjectId(id) }
+            const result = await bookingCollection.deleteOne(query);
             res.send(result);
         })
         // Send a ping to confirm a successful connection
